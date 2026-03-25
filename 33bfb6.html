@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" style="height: auto; min-height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vastunirmana Projects - Architecture & Construction Excellence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link id="heading-font-link" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link id="body-font-link" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['var(--font-heading-name)', 'serif'],
+            body: ['var(--font-body-name)', 'sans-serif'],
+          },
+          spacing: {
+            base: 'var(--space-base)',
+          },
+          borderRadius: {
+            small: 'var(--radius-small)',
+            large: 'var(--radius-large)',
+          },
+          boxShadow: {
+            custom: 'var(--shadow-custom)',
+            'custom-hover': 'var(--shadow-custom-hover)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --font-heading-name: 'Playfair Display';
+      --font-body-name: 'Inter';
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Inter', sans-serif;
+      --letter-spacing-heading: -0.5px;
+      --letter-spacing-body: 0px;
+      --space-base: 1rem;
+      --radius-small: 4px;
+      --radius-large: 12px;
+      --border-width: 1px;
+      --shadow-color: 0 0 0;
+      --shadow-offset-x: 0px;
+      --shadow-offset-y: 4px;
+      --shadow-blur: 24px;
+      --shadow-spread: 0px;
+      --shadow-opacity: 0.1;
+      --shadow-custom: 0px 4px 24px rgba(0,0,0,0.10);
+      --shadow-custom-hover: 0px 8px 40px rgba(0,0,0,0.18);
+    }
+
+    html, body {
+      scroll-behavior: smooth;
+    }
+
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #d4a853;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .marquee-track {
+      display: flex;
+      animation: marquee 35s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .portfolio-card:hover .portfolio-overlay {
+      opacity: 1;
+    }
+    .portfolio-card:hover img {
+      transform: scale(1.07);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .counter-num {
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="font-body bg-white text-gray-900" style="height: auto; min-height: 100%;">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100" style="box-shadow: 0 2px 20px rgba(0,0,0,0.06);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-small flex items-center justify-center" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+            <span class="text-white font-heading font-bold text-sm">VP</span>
+          </div>
+          <span class="font-heading font-bold text-xl text-gray-900 tracking-tight">Vastunirmana<span style="color:#d4a853;">Projects</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">Home</a>
+          <a href="#about" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">About</a>
+          <a href="#services" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">Services</a>
+          <a href="#projects" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">Projects</a>
+          <a href="#testimonials" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">Testimonials</a>
+          <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors">Contact</a>
+        </div>
+
+        <!-- CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#contact" class="px-5 py-2.5 rounded-small text-sm font-semibold text-white transition-all duration-200" style="background: linear-gradient(135deg, #d4a853, #b8860b);">Get a Quote</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-small text-gray-700 hover:bg-gray-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4">
+      <div class="flex flex-col gap-3">
+        <a href="#home" class="text-gray-700 font-medium py-2 border-b border-gray-50">Home</a>
+        <a href="#about" class="text-gray-700 font-medium py-2 border-b border-gray-50">About</a>
+        <a href="#services" class="text-gray-700 font-medium py-2 border-b border-gray-50">Services</a>
+        <a href="#projects" class="text-gray-700 font-medium py-2 border-b border-gray-50">Projects</a>
+        <a href="#testimonials" class="text-gray-700 font-medium py-2 border-b border-gray-50">Testimonials</a>
+        <a href="#contact" class="text-gray-700 font-medium py-2">Contact</a>
+        <a href="#contact" class="mt-2 px-5 py-2.5 rounded-small text-sm font-semibold text-white text-center" style="background: linear-gradient(135deg, #d4a853, #b8860b);">Get a Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="pt-16 md:pt-20 overflow-hidden" style="max-height: 900px; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Left Content -->
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-large mb-6 border" style="background: rgba(212,168,83,0.1); border-color: rgba(212,168,83,0.3);">
+            <div class="w-2 h-2 rounded-full animate-pulse" style="background:#d4a853;"></div>
+            <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">Premium Construction & Design</span>
+          </div>
+          <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6">
+            Building Dreams,
+            <span class="block" style="color:#d4a853;">Crafting Legacies</span>
+          </h1>
+          <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+            From architectural masterpieces to turnkey construction, Vastunirmana Projects delivers excellence in every square foot. We blend traditional Vastu principles with modern engineering.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#projects" class="px-8 py-4 rounded-small font-semibold text-white text-sm transition-all duration-200 hover:opacity-90" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+              View Our Projects
+            </a>
+            <a href="#contact" class="px-8 py-4 rounded-small font-semibold text-white text-sm border border-white/20 hover:bg-white/10 transition-all duration-200">
+              Consultation
+            </a>
+          </div>
+          <!-- Stats Row -->
+          <div class="flex gap-8 mt-12 justify-center lg:justify-start">
+            <div>
+              <div class="counter-num text-3xl font-bold text-white">500k+</div>
+              <div class="text-gray-400 text-xs mt-1">Sq. Ft. Built</div>
+            </div>
+            <div class="w-px bg-white/10"></div>
+            <div>
+              <div class="counter-num text-3xl font-bold text-white">120+</div>
+              <div class="text-gray-400 text-xs mt-1">Projects Delivered</div>
+            </div>
+            <div class="w-px bg-white/10"></div>
+            <div>
+              <div class="counter-num text-3xl font-bold text-white">15+</div>
+              <div class="text-gray-400 text-xs mt-1">Years Excellence</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual -->
+        <div class="relative hidden lg:block">
+          <div class="relative rounded-large overflow-hidden" style="box-shadow: 0 30px 80px rgba(212,168,83,0.2);">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80" alt="Modern Luxury Architecture" class="w-full object-cover" style="height: 520px;">
+            <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.5) 100%);"></div>
+          </div>
+          <!-- Floating Badge -->
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-large p-4 shadow-custom">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-small flex items-center justify-center" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900 text-sm">ISO Certified</div>
+                <div class="text-gray-500 text-xs">Quality Construction</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee / Ticker -->
+  <section class="py-4 overflow-hidden border-y border-gray-100" style="background: #f9f6f0; max-height: 80px;">
+    <div class="marquee-track">
+      <div class="flex items-center gap-12 pr-12">
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Architecture</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Construction</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Interior Design</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Vastu Shastra</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Renovation</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Turnkey Projects</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+      </div>
+      <div class="flex items-center gap-12 pr-12">
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Architecture</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Construction</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Interior Design</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Vastu Shastra</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Renovation</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+        <span class="font-heading text-2xl font-bold text-gray-200 whitespace-nowrap">Turnkey Projects</span>
+        <span style="color:#d4a853; font-size:1.2rem;">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 md:py-24 bg-white" style="max-height: 900px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Images Grid -->
+        <div class="relative grid grid-cols-2 gap-4">
+          <div class="rounded-large overflow-hidden" style="height: 280px;">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&q=80" alt="Construction Site" class="w-full h-full object-cover">
+          </div>
+          <div class="rounded-large overflow-hidden mt-8" style="height: 280px;">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" alt="Architectural Blueprint" class="w-full h-full object-cover">
+          </div>
+          <!-- Gold Accent -->
+          <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-large text-white text-sm font-semibold" style="background: linear-gradient(135deg, #d4a853, #b8860b); box-shadow: 0 8px 24px rgba(212,168,83,0.4);">
+            Since 2008 · Building Trust
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div>
+          <div class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-px" style="background:#d4a853;"></div>
+            <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">About Us</span>
+          </div>
+          <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+            We Construct Your Vision Into Reality
+          </h2>
+          <p class="text-gray-600 text-base leading-relaxed mb-6">
+            Vastunirmana Projects is a premier construction and architectural firm dedicated to creating spaces that inspire. We specialize in residential, commercial, and industrial projects, ensuring every structure stands the test of time.
+          </p>
+          <p class="text-gray-600 text-base leading-relaxed mb-8">
+            Our name "Vastunirmana" reflects our core philosophy: harmonizing the ancient science of Vastu with modern construction techniques (Nirmana) to build homes and offices that bring prosperity and peace.
+          </p>
+          <!-- Values -->
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-small flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(212,168,83,0.15);">
+                <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900 text-sm">Quality Assurance</div>
+                <div class="text-gray-500 text-xs mt-0.5">Premium materials only</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-small flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(212,168,83,0.15);">
+                <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900 text-sm">Vastu Compliant</div>
+                <div class="text-gray-500 text-xs mt-0.5">Harmonious living spaces</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-small flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(212,168,83,0.15);">
+                <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900 text-sm">On-Time Delivery</div>
+                <div class="text-gray-500 text-xs mt-0.5">Strict project timelines</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-small flex items-center justify-center flex-shrink-0 mt-0.5" style="background: rgba(212,168,83,0.15);">
+                <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900 text-sm">Transparent Cost</div>
+                <div class="text-gray-500 text-xs mt-0.5">No hidden charges</div>
+              </div>
+            </div>
+          </div>
+          <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-small font-semibold text-white text-sm transition-all duration-200 hover:opacity-90" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+            Start Your Project
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-16 md:py-24" style="background: #f9f6f0; max-height: 1000px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-14">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <div class="w-8 h-px" style="background:#d4a853;"></div>
+          <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">What We Do</span>
+          <div class="w-8 h-px" style="background:#d4a853;"></div>
+        </div>
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Services</h2>
+        <p class="text-gray-600 max-w-xl mx-auto text-base">Comprehensive construction and design solutions tailored to your needs, from blueprint to final handover.</p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Architectural Design</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Innovative architectural planning and 3D elevations that maximize space, light, and aesthetic appeal.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Construction Management</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">End-to-end construction services for residential and commercial projects with strict quality control.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Interior Design</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Bespoke interior solutions that blend functionality with luxury, creating spaces that reflect your personality.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Vastu Consultation</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Expert Vastu Shastra guidance to ensure your building brings prosperity, health, and positive energy.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Renovation & Remodeling</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Transforming old structures into modern masterpieces with structural strengthening and aesthetic upgrades.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card bg-white rounded-large p-8 shadow-custom transition-all duration-300 cursor-pointer group">
+          <div class="w-14 h-14 rounded-large flex items-center justify-center mb-6" style="background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));">
+            <svg class="w-7 h-7" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Structural Engineering</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Detailed structural analysis and design to ensure the safety, stability, and longevity of your building.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color:#d4a853;">
+            Learn More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-16 md:py-24 bg-white" style="max-height: 1100px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-px" style="background:#d4a853;"></div>
+            <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">Our Portfolio</span>
+          </div>
+          <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">Featured Projects</h2>
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-small border font-semibold text-sm transition-all duration-200 hover:bg-gray-50" style="border-color:#d4a853; color:#d4a853;">
+          View All Projects
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="portfolio-card rounded-large overflow-hidden cursor-pointer relative" style="height: 280px;">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Luxury Villa Project" class="w-full h-full object-cover transition-transform duration-500">
+          <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-6 opacity-0 transition-opacity duration-300" style="background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.85) 100%);">
+            <span class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#d4a853;">Residential</span>
+            <h3 class="font-heading text-xl font-bold text-white">The Emerald Villa</h3>
+            <p class="text-gray-300 text-sm mt-1">5,000 sq. ft. luxury residence in Pune</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card rounded-large overflow-hidden cursor-pointer relative lg:col-span-2" style="height: 280px;">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80" alt="Corporate Office Interior" class="w-full h-full object-cover transition-transform duration-500">
+          <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-6 opacity-0 transition-opacity duration-300" style="background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.85) 100%);">
+            <span class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#d4a853;">Commercial Interior</span>
+            <h3 class="font-heading text-xl font-bold text-white">TechSpace HQ</h3>
+            <p class="text-gray-300 text-sm mt-1">Modern open-plan office for a leading tech firm</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card rounded-large overflow-hidden cursor-pointer relative lg:col-span-2" style="height: 280px;">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80" alt="Apartment Complex" class="w-full h-full object-cover transition-transform duration-500">
+          <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-6 opacity-0 transition-opacity duration-300" style="background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.85) 100%);">
+            <span class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#d4a853;">Construction</span>
+            <h3 class="font-heading text-xl font-bold text-white">Skyline Heights</h3>
+            <p class="text-gray-300 text-sm mt-1">12-story premium residential tower</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card rounded-large overflow-hidden cursor-pointer relative" style="height: 280px;">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" alt="Interior Renovation" class="w-full h-full object-cover transition-transform duration-500">
+          <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-6 opacity-0 transition-opacity duration-300" style="background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.85) 100%);">
+            <span class="text-xs font-semibold tracking-widest uppercase mb-2" style="color:#d4a853;">Renovation</span>
+            <h3 class="font-heading text-xl font-bold text-white">Heritage Home Restore</h3>
+            <p class="text-gray-300 text-sm mt-1">Restoring a 50-year old bungalow</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats / CTA Banner -->
+  <section class="py-16 md:py-20 overflow-hidden" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%); max-height: 400px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="counter-num text-4xl md:text-5xl font-bold mb-2" style="color:#d4a853;">500k+</div>
+          <div class="text-gray-400 text-sm font-medium">Sq. Ft. Constructed</div>
+        </div>
+        <div>
+          <div class="counter-num text-4xl md:text-5xl font-bold mb-2" style="color:#d4a853;">120+</div>
+          <div class="text-gray-400 text-sm font-medium">Projects Delivered</div>
+        </div>
+        <div>
+          <div class="counter-num text-4xl md:text-5xl font-bold mb-2" style="color:#d4a853;">15+</div>
+          <div class="text-gray-400 text-sm font-medium">Years Experience</div>
+        </div>
+        <div>
+          <div class="counter-num text-4xl md:text-5xl font-bold mb-2" style="color:#d4a853;">100%</div>
+          <div class="text-gray-400 text-sm font-medium">On-Time Delivery</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-16 md:py-24" style="background: #f9f6f0; max-height: 900px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <div class="w-8 h-px" style="background:#d4a853;"></div>
+          <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">Testimonials</span>
+          <div class="w-8 h-px" style="background:#d4a853;"></div>
+        </div>
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+        <p class="text-gray-600 max-w-xl mx-auto text-base">Hear from the families and businesses who trusted us to build their dreams.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-large p-8 shadow-custom">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">"Vastunirmana Projects built our dream home with incredible attention to detail. Their team managed everything from the foundation to the final interior touches. Highly recommended!"</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Rajesh Kumar" class="w-10 h-10 rounded-small object-cover">
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Rajesh Kumar</div>
+              <div class="text-gray-500 text-xs">Homeowner, Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-large p-8 shadow-custom">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">"We hired them for our office renovation. The transformation is stunning! They optimized our space perfectly and delivered on time. The Vastu consultation was a great bonus."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Anita Desai" class="w-10 h-10 rounded-small object-cover">
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Anita Desai</div>
+              <div class="text-gray-500 text-xs">Director, Creative Solutions</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-large p-8 shadow-custom">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4" style="color:#d4a853;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">"Professional, transparent, and skilled. Vastunirmana Projects made the construction of our commercial complex seamless. The quality of materials used was top-notch."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="Vikram Singh" class="w-10 h-10 rounded-small object-cover">
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">Vikram Singh</div>
+              <div class="text-gray-500 text-xs">Developer, Pune</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 md:py-24 bg-white" style="max-height: 900px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-4">
+            <div class="w-8 h-px" style="background:#d4a853;"></div>
+            <span class="text-xs font-semibold tracking-widest uppercase" style="color:#d4a853;">Get In Touch</span>
+          </div>
+          <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+            Let's Build Your <span style="color:#d4a853;">Vision</span> Together
+          </h2>
+          <p class="text-gray-600 text-base leading-relaxed mb-8">
+            Planning a new home or commercial project? Contact us for a consultation. We'll help you navigate from concept to completion.
+          </p>
+
+          <div class="space-y-5">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-large flex items-center justify-center flex-shrink-0" style="background: rgba(212,168,83,0.1);">
+                <svg class="w-5 h-5" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 font-medium mb-0.5">Email</div>
+                <div class="text-gray-900 font-semibold text-sm">info@vastunirmanaprojects.in</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-large flex items-center justify-center flex-shrink-0" style="background: rgba(212,168,83,0.1);">
+                <svg class="w-5 h-5" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 font-medium mb-0.5">Phone</div>
+                <div class="text-gray-900 font-semibold text-sm">+91 98765 43210</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-large flex items-center justify-center flex-shrink-0" style="background: rgba(212,168,83,0.1);">
+                <svg class="w-5 h-5" style="color:#d4a853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 font-medium mb-0.5">Location</div>
+                <div class="text-gray-900 font-semibold text-sm">Mumbai, Maharashtra, India</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-8">
+            <a href="#" class="w-10 h-10 rounded-small flex items-center justify-center border border-gray-200 text-gray-600 hover:border-yellow-500 hover:text-yellow-600 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-small flex items-center justify-center border border-gray-200 text-gray-600 hover:border-yellow-500 hover:text-yellow-600 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-small flex items-center justify-center border border-gray-200 text-gray-600 hover:border-yellow-500 hover:text-yellow-600 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-large p-8 shadow-custom">
+          <h3 class="font-heading text-2xl font-bold text-gray-900 mb-6">Request a Quote</h3>
+          <form class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">First Name</label>
+                <input type="text" placeholder="John" class="w-full px-4 py-3 rounded-small border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Last Name</label>
+                <input type="text" placeholder="Doe" class="w-full px-4 py-3 rounded-small border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Email Address</label>
+              <input type="email" placeholder="john@example.com" class="w-full px-4 py-3 rounded-small border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Service Interested In</label>
+              <select class="w-full px-4 py-3 rounded-small border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:border-yellow-400 transition-colors">
+                <option value="">Select a service...</option>
+                <option>Architectural Design</option>
+                <option>Construction Management</option>
+                <option>Interior Design</option>
+                <option>Vastu Consultation</option>
+                <option>Renovation</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Project Details</label>
+              <textarea rows="4" placeholder="Tell us about your project requirements..." class="w-full px-4 py-3 rounded-small border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:border-yellow-400 transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full py-4 rounded-small font-semibold text-white text-sm transition-all duration-200 hover:opacity-90" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+              Submit Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 md:py-16" style="background: #0a0a0a; max-height: 600px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-small flex items-center justify-center" style="background: linear-gradient(135deg, #d4a853, #b8860b);">
+              <span class="text-white font-heading font-bold text-sm">VP</span>
+            </div>
+            <span class="font-heading font-bold text-xl text-white">Vastunirmana<span style="color:#d4a853;">Projects</span></span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
+            A leading construction and architectural firm committed to building excellence. We create sustainable, Vastu-compliant spaces that stand the test of time.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 rounded-small flex items-center justify-center bg-white/5 text-gray-400 hover:bg-yellow-500/20 hover:text-yellow-400 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-small flex items-center justify-center bg-white/5 text-gray-400 hover:bg-yellow-500/20 hover:text-yellow-400 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-small flex items-center justify-center bg-white/5 text-gray-400 hover:bg-yellow-500/20 hover:text-yellow-400 transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-5 uppercase tracking-wider">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="#home" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Home</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">About Us</a></li>
+            <li><a href="#services" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Services</a></li>
+            <li><a href="#projects" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Projects</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-white text-sm mb-5 uppercase tracking-wider">Services</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Architectural Design</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Construction</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Interior Design</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Vastu Consultation</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-yellow-400 text-sm transition-colors">Renovation</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-gray-500 text-sm">© 2024 Vastunirmana Projects. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-gray-500 hover:text-yellow-400 text-sm transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-500 hover:text-yellow-400 text-sm transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
